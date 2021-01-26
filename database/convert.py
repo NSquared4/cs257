@@ -56,52 +56,64 @@ def create_nocs_csv(noc_regions):
                 noc_id += 1
             print("...complete\n")
 
-def create_athlete_noc_csv(athlete_file, athlete_event_file, nocs_file):
+def create_athlete_noc_csv(athlete_event_file, nocs_file):
     """
         Write the id, name, age, height, weight, and sport columns from athlete_events.csv into Athletes.csv
 
         input: athlete_events.csv
         output: None
 
-        1: Get athlete_id from Athletes.csv
         2: Match the athlete_id to ID in athlete_events.csv
         3: If match get the NOC of the ID in athlete_events.csv
         4: Get the noc_id from NOCs.csv 
         4: Add athlete_id and noc_id to Athletes_NOCs.csv 
     """
 
-    athlete_csv = athlete_file
     athlete_event_csv = athlete_event_file
     noc_csv = nocs_file 
 
     athlete_id = 0
+    noc = ""
     noc_id = 0
-
-    with open(athlete_csv, mode='r') as open_athlete_csv:
-        athlete_csv_reader = csv.reader(open_athlete_csv)
-
-        with open(athlete_event_csv, mode='r') as open_athlete_event:
-            athlete_event_reader = csv.reader(open_athlete_event)
-
-            with open(noc_csv, moder='r') as open_noc:
-                noc_reader = csv.reader(open_noc)
-
-                with open('Athletes_NOCs.csv', mode='w') as open_athlete_noc:
-                    athlete_noc_writer = csv.writer(open_athlete_noc, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-
-                    #create field header column
-                    athlete_noc_writer.writerow(["athlete_id", "noc_id"])
-
-                    for athlete_id in athlete_csv_reader: 
-                        pass
+    noc_id_dict = {}
 
 
+    with open(athlete_event_csv, mode='r') as open_athlete_event:
+        athlete_event_reader = csv.reader(open_athlete_event)
 
+        with open(noc_csv, mode='r') as open_noc:
+            noc_reader = csv.reader(open_noc)
+            
+            for noc_row in noc_reader:
+                if noc_row[0] != "ID" and noc_row[1] != "NOC":
+                    noc_id_dict[noc_row[1]] = noc_row[0]
 
+            with open('Athletes_NOCs.csv', mode='w') as open_athlete_noc:
+                athlete_noc_writer = csv.writer(open_athlete_noc, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+                #create field header column
+                athlete_noc_writer.writerow(["athlete_id", "noc_id"])
+
+                print("Creating Athletes_NOCs.csv...")
+                for id_and_noc in athlete_event_reader:
+                    if id_and_noc[0] != "athlete_id" and id_and_noc[7] != "NOC":
+                        athlete_id = id_and_noc[0]
+                        noc = id_and_noc[7]
+                        noc_id = noc_id_dict[noc]
+
+                        athlete_noc_writer.writerow([athlete_id, noc_id])
+                print("...complete\n")
+
+def medal_id(athlete_events):
+    athlete_event_csv = athlete_events
+
+    with open(athlete_event_csv, mode='r') as open_athlete_event:
+        pass
 
 def main():
-    create_athletes_csv('athlete_events.csv')
-    create_nocs_csv('noc_regions.csv')
+    #create_athletes_csv('athlete_events.csv')
+    #create_nocs_csv('noc_regions.csv')
+    create_athlete_noc_csv('athlete_events.csv', 'NOCs.csv')
 
 if __name__ == "__main__":
     main()
