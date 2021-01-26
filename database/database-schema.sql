@@ -16,7 +16,8 @@ CREATE TABLE Medals (
     id SERIAL,
     year integer,
     medal_type integer,
-    
+    season text
+    sport text
 );
 
 CREATE TABLE NOCs_Medals (

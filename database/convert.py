@@ -76,7 +76,7 @@ def create_athlete_noc_csv(athlete_event_file, nocs_file):
     noc = ""
     noc_id = 0
     noc_id_dict = {}
-
+    duplicationDict = {}
 
     with open(athlete_event_csv, mode='r') as open_athlete_event:
         athlete_event_reader = csv.reader(open_athlete_event)
@@ -96,24 +96,95 @@ def create_athlete_noc_csv(athlete_event_file, nocs_file):
 
                 print("Creating Athletes_NOCs.csv...")
                 for id_and_noc in athlete_event_reader:
-                    if id_and_noc[0] != "ID" and id_and_noc[7] != "NOC":
-                        athlete_id = id_and_noc[0]
-                        noc = id_and_noc[7]
-                        noc_id = noc_id_dict[noc]
+                    if id_and_noc[0] not in duplicationDict:
+                        duplicationDict[id_and_noc[0]] = ""
 
-                        athlete_noc_writer.writerow([athlete_id, noc_id])
+                        if id_and_noc[0] != "ID" and id_and_noc[7] != "NOC":
+                            athlete_id = id_and_noc[0]
+                            noc = id_and_noc[7]
+                            noc_id = noc_id_dict[noc]
+
+                            athlete_noc_writer.writerow([athlete_id, noc_id])
                 print("...complete\n")
 
-def medal_id(athlete_events):
-    athlete_event_csv = athlete_events
+def create_medal_csv(athlete_events):
+    athlete_events_csv = athlete_events
 
-    with open(athlete_event_csv, mode='r') as open_athlete_event:
+    with open(athlete_events_csv, mode='r') as open_athlete_event:
         pass
+
+    #open athlete_event.csv
+    with open(athlete_events_csv, mode ='r') as file:
+        csv_file = csv.reader(file)
+
+        #write into Athletes.csv
+        with open('Medals.csv', mode='w') as medal_info:
+            medal_writer = csv.writer(medal_info, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            medal_writer.writerow(["ID", "Year", "Event", "Medal"])
+            print("Creating Medals.csv file...")
+
+            medal_ID = 0
+            for csv_row in csv_file:
+
+                if str(csv_row[14]) == "NA" or csv_row[0] == "ID":
+                    continue
+                medal_ID += 1
+                medal_writer.writerow([medal_ID, csv_row[9], csv_row[13], str(csv_row[14])])
+
+            print("...complete\n")
+
+def create_athlete_medal_csv(athlete_event_file, medal_file):
+    """
+        Write the id, name, age, height, weight, and sport columns from athlete_events.csv into Athletes.csv
+
+        input: athlete_events.csv
+        output: None
+
+        2: Match the athlete_id to ID in athlete_events.csv
+        3: If match get the NOC of the ID in athlete_events.csv
+        4: Get the noc_id from NOCs.csv 
+        4: Add athlete_id and noc_id to Athletes_NOCs.csv 
+    """
+
+    athlete_event_csv = athlete_event_file
+    medal_csv = medal_file
+
+    athlete_id = 0
+    medal_id = 0
+    with open(athlete_event_csv, mode='r') as open_athlete_event:
+        athlete_event_reader = csv.reader(open_athlete_event)
+
+        with open(medal_csv, mode='r') as open_medal:
+            medal_reader = csv.reader(open_medal)
+            
+            with open('Athletes_Medals.csv', mode='w') as open_athlete_medal:
+                athlete_medal_writer = csv.writer(open_athlete_medal, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+                #create field header column
+                athlete_medal_writer.writerow(["athlete_id", "medal"])
+
+                print("Creating Athletes_Medals.csv...")
+                for row in athlete_event_reader:
+
+                    if row[0] != "ID" and str(row[14]) != "NA":
+                        athlete_id = row[0]
+
+                        for medal in medal_reader:
+                            if row[9] == medal[1] and row[13] == medal[2] and row[14] == medal[3]:
+                                print(medal[1], medal[2], medal[3])
+                                medal_id = medal[0]
+                                break
+
+                        athlete_medal_writer.writerow([athlete_id, medal_id])
+
+                print("...complete\n")
 
 def main():
     #create_athletes_csv('athlete_events.csv')
     #create_nocs_csv('noc_regions.csv')
-    create_athlete_noc_csv('athlete_events.csv', 'NOCs.csv')
+    #create_athlete_noc_csv('athlete_events.csv', 'NOCs.csv')
+    #create_medal_csv('athlete_events.csv')
+    create_athlete_medal_csv('athlete_events.csv', 'Medals.csv')
 
 if __name__ == "__main__":
     main()
