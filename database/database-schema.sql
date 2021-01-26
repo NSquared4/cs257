@@ -1,9 +1,9 @@
 CREATE TABLE Athletes (
     id SERIAL,
-    _name text,
+    athlete_name text,
     age integer,
     height integer,
-    _weight integer,
+    athlete_weight integer,
     sport text
 );
 
@@ -15,19 +15,18 @@ CREATE TABLE NOCs (
 CREATE TABLE Medals (
     id SERIAL,
     year integer,
-    medal_type integer,
-    season text
-    sport text
+    sport text,
+    medal_type integer
 );
 
 CREATE TABLE NOCs_Medals (
-    NOC_id integer,
+    noc_id integer,
     medal_id integer
 );
 
 CREATE TABLE Athletes_NOCs (
     athlete_id integer,
-    NOC_id integer
+    noc_id integer
 );
 CREATE TABLE Athletes_Medals (
     athlete_id integer,

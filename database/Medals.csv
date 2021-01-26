@@ -1,4 +1,4 @@
-ID,Year,Event,Medal
+id,year,sport,medal_type
 1,1900,Tug-Of-War Men's Tug-Of-War,Gold
 2,1920,Swimming Men's 200 metres Breaststroke,Bronze
 3,1920,Swimming Men's 400 metres Breaststroke,Bronze
