@@ -96,7 +96,7 @@ def create_athlete_noc_csv(athlete_event_file, nocs_file):
 
                 print("Creating Athletes_NOCs.csv...")
                 for id_and_noc in athlete_event_reader:
-                    if id_and_noc[0] != "athlete_id" and id_and_noc[7] != "NOC":
+                    if id_and_noc[0] != "ID" and id_and_noc[7] != "NOC":
                         athlete_id = id_and_noc[0]
                         noc = id_and_noc[7]
                         noc_id = noc_id_dict[noc]
