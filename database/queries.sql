@@ -2,9 +2,10 @@ SELECT *
 FROM nocs 
 ORDER BY noc_abbre ASC; 
 
-SELECT Athletes.*
-FROM Athletes, Athletes_NOCs
-WHERE Athletes.id = Athletes_NOCs.athlete_id 
+SELECT Athletes.*, NOCs.noc_abbre
+FROM Athletes, Athletes_NOCs, NOCs 
+WHERE Athletes.id = Athletes_NOCs.athlete_id
+AND Athletes_NOCs.noc_id = NOCs.id 
 AND Athletes_NOCs.noc_id = CAST(107 AS text);
 
 SELECT Athletes.athlete_name, Medals.year, Medals.sport, Medals.medal_type 
@@ -21,4 +22,4 @@ WHERE NOCs.id = NOCs_Medals.noc_id
 AND NOCs_Medals.medal_id = Medals.id 
 AND Medals.medal_type = 'Gold'
 GROUP BY NOCs.noc_abbre
-ORDER BY COUNT(NOCs_Medals.noc_id) ASC;
+ORDER BY COUNT(NOCs_Medals.noc_id) DESC;
