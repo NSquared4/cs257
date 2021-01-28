@@ -25,7 +25,7 @@ def create_athletes_csv(athlete_events):
                 if csv_row[0] not in duplication_dict:
                     duplication_dict[csv_row[0]] = ""
                     if csv_row[0] != "ID":
-                        athlete_writer.writerow([csv_row[0], csv_row[1], csv_row[3], csv_row[4], csv_row[5], csv_row[12]])
+                        athlete_writer.writerow([csv_row[0], csv_row[1], csv_row[3], csv_row[4], csv_row[5], csv_row[13]])
 
             print("...complete\n")
 
