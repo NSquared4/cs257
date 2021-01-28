@@ -1,0 +1,12 @@
+Lists specific data from the olympic database 
+
+    -h, --help: returns a usage statment
+    -e, --events: return a list of all olympic events in alphabetical order
+    --list_golds, -lg: returns all NOC that has won gold medals in descending order by the number of gold medals
+    -lna, --list_noc_athletes: return a list of athletes from a specified NOC 
+           
+
+    Example:
+    python3 olympics.py -h
+    python3 olympics.py --list_noc_athletes USA 
+    python3 olympics.py -e -lna KEN -lg 
