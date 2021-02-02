@@ -200,8 +200,7 @@ def main():
 
                 else:
                     print("-h or --help to get possible arguments")
-                    break
-                
+                    break     
         else:
             print(usage_statements)
 
