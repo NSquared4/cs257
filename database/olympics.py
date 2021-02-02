@@ -1,3 +1,4 @@
+# Martin Bernard and Kevin Chen
 import sys
 import psycopg2
 
