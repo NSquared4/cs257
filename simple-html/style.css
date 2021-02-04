@@ -1,0 +1,63 @@
+#abvFold{
+    height: 740px;
+    width: 100%;
+}
+
+#title{
+    height: 25%;
+    width: 100%;
+    font-size: 100pt; 
+    color: white;
+    background-color: #ADD8E6;
+    text-align: center;
+}
+
+#leftSide{
+    height: 75%;
+    width: 20%;
+    float: left;
+    color: white;
+    background-color: green;
+}
+
+#rightSide{
+    height: 75%;
+    width: 80%;
+    float: left;
+    text-align: center; 
+    color: black;
+    background-color: yellow;
+}
+
+.poemT{
+    margin-left: 2px;
+    margin-top: 5px;
+    margin-bottom: 20px; 
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+#line1{
+    margin-left: 2px; 
+    margin-top: 0px; 
+    margin-bottom: 10px; 
+}
+
+.inLine{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.indent{
+    text-indent: 22px; 
+}
+
+.topMargin{
+    margin-top: 10px; 
+}
+
+
+#author{
+    text-indent: 102px;
+}
+
